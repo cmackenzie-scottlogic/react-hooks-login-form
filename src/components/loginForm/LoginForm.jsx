@@ -3,7 +3,7 @@ import clsx from "clsx";
 import styles from "./LoginForm.module.css";
 import { useLoginFormValidator } from "./hooks/useLoginFormValidator";
 
-const LoginForm = props => {
+const LoginForm = (props) => {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -11,7 +11,7 @@ const LoginForm = props => {
   });
   const { errors, validateForm, onBlurField } = useLoginFormValidator(form);
 
-  const onUpdateField = e => {
+  const onUpdateField = (e) => {
     const field = e.target.name;
     const nextFormState = {
       ...form,
@@ -26,7 +26,7 @@ const LoginForm = props => {
       });
   };
 
-  const onSubmitForm = e => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
     const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
     if (!isValid) return;

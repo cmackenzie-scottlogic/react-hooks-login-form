@@ -6,7 +6,7 @@ import {
   confirmPasswordValidator,
 } from "../validators.js";
 
-const touchErrors = errors => {
+const touchErrors = (errors) => {
   return Object.entries(errors).reduce((acc, [field, fieldError]) => {
     acc[field] = {
       ...fieldError,
@@ -16,7 +16,7 @@ const touchErrors = errors => {
   }, {});
 };
 
-export const useLoginFormValidator = form => {
+export const useLoginFormValidator = (form) => {
   const [errors, setErrors] = useState({
     email: {
       dirty: false,
@@ -83,7 +83,7 @@ export const useLoginFormValidator = form => {
     };
   };
 
-  const onBlurField = e => {
+  const onBlurField = (e) => {
     const field = e.target.name;
     const fieldError = errors[field];
     if (fieldError.dirty) return;
