@@ -39,12 +39,13 @@ const LoginForm = (props) => {
 				<label className={styles.formLabel}>Email</label>
 				<input
 					className={clsx(styles.formField, errors.email.dirty && errors.email.error && styles.formFieldError)}
-					type="text"
+					type="email"
 					aria-label="Email field"
 					name="email"
 					value={form.email}
 					onChange={onUpdateField}
 					onBlur={onBlurField}
+					required
 				/>
 				{errors.email.dirty && errors.email.error ? (
 					<p className={styles.formFieldErrorMessage}>{errors.email.message}</p>
@@ -60,6 +61,8 @@ const LoginForm = (props) => {
 					value={form.password}
 					onChange={onUpdateField}
 					onBlur={onBlurField}
+					required
+					minLength="8"
 				/>
 				{errors.password.dirty && errors.password.error ? (
 					<p className={styles.formFieldErrorMessage}>{errors.password.message}</p>
@@ -78,6 +81,9 @@ const LoginForm = (props) => {
 					value={form.confirmPassword}
 					onChange={onUpdateField}
 					onBlur={onBlurField}
+					required
+					minLength="8"
+					pattern={form.password}
 				/>
 				{errors.confirmPassword.dirty && errors.confirmPassword.error ? (
 					<p className={styles.formFieldErrorMessage}>{errors.confirmPassword.message}</p>
