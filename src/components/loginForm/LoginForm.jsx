@@ -1,23 +1,14 @@
-import { useState } from "react";
 import styles from "./LoginForm.module.css";
 import { useLoginFormValidator } from "./hooks/useLoginFormValidator";
 
 const LoginForm = (props) => {
-	const [form, setForm] = useState({
+	const { form, errors, onChange, onInvalid, onBlur } = useLoginFormValidator({
 		email: "",
 		password: "",
 		confirmPassword: ""
 	});
-	const { errors, onInvalid, onBlurField } = useLoginFormValidator();
 
-	const onUpdateField = (e) => {
-		const field = e.target.name;
-		errors[field] = e.target.validationMessage;
-		form[field] = e.target.value;
-		setForm({ ...form });
-	};
-
-	const onSubmitForm = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
 		if (e.target.checkValidity()) {
 			alert(JSON.stringify(form, null, 2));
@@ -25,7 +16,7 @@ const LoginForm = (props) => {
 	};
 
 	return (
-		<form className={styles.form} onSubmit={onSubmitForm} noValidate>
+		<form className={styles.form} noValidate onSubmit={onSubmit} onChange={onChange} onInvalid={onInvalid}>
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Email</label>
 				<input
@@ -34,9 +25,7 @@ const LoginForm = (props) => {
 					aria-label="Email field"
 					name="email"
 					value={form.email}
-					onChange={onUpdateField}
-					onBlur={onBlurField}
-					onInvalid={onInvalid}
+					onBlur={onBlur}
 					required
 				/>
 				<p className="invalid-feedback">{errors.email}</p>
@@ -49,9 +38,7 @@ const LoginForm = (props) => {
 					aria-label="Password field"
 					name="password"
 					value={form.password}
-					onChange={onUpdateField}
-					onBlur={onBlurField}
-					onInvalid={onInvalid}
+					onBlur={onBlur}
 					required
 					minLength="8"
 				/>
@@ -65,9 +52,7 @@ const LoginForm = (props) => {
 					aria-label="Confirm password field"
 					name="confirmPassword"
 					value={form.confirmPassword}
-					onChange={onUpdateField}
-					onBlur={onBlurField}
-					onInvalid={onInvalid}
+					onBlur={onBlur}
 					required
 					minLength="8"
 					pattern={form.password}

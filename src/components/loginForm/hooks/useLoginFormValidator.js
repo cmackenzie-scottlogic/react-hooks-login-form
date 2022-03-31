@@ -1,23 +1,32 @@
 import { useState } from "react";
 
-export const useLoginFormValidator = () => {
+export const useLoginFormValidator = (initialForm) => {
 	const [errors, setErrors] = useState({});
+	const [form, setForm] = useState(initialForm);
 
-	const onBlurField = (e) => {
+	const onBlur = (e) => {
 		e.target.checkValidity();
 	};
 
 	const onInvalid = (e) => {
+		e.target.form.classList.add("was-validated");
 		const field = e.target.name;
 		errors[field] = e.target.validationMessage;
 		setErrors({ ...errors });
-		e.target.form.classList.add("was-validated");
+	};
+
+	const onChange = (e) => {
+		const field = e.target.name;
+		errors[field] = e.target.validationMessage;
+		form[field] = e.target.value;
+		setForm({ ...form });
 	};
 
 	return {
-		onBlurField,
+		onBlur,
+		onChange,
 		onInvalid,
 		errors,
-		setErrors
+		form
 	};
 };
