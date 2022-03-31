@@ -1,5 +1,4 @@
 import { useState } from "react";
-import clsx from "clsx";
 import styles from "./LoginForm.module.css";
 import { useLoginFormValidator } from "./hooks/useLoginFormValidator";
 
@@ -9,32 +8,24 @@ const LoginForm = (props) => {
 		password: "",
 		confirmPassword: ""
 	});
-	const { errors, validateForm, onBlurField } = useLoginFormValidator(form);
+	const { errors, onInvalid, onBlurField } = useLoginFormValidator();
 
 	const onUpdateField = (e) => {
 		const field = e.target.name;
-		const nextFormState = {
-			...form,
-			[field]: e.target.value
-		};
-		setForm(nextFormState);
-		if (errors[field].dirty)
-			validateForm({
-				form: nextFormState,
-				errors,
-				field
-			});
+		errors[field] = e.target.validationMessage;
+		form[field] = e.target.value;
+		setForm({ ...form });
 	};
 
 	const onSubmitForm = (e) => {
 		e.preventDefault();
-		const { isValid } = validateForm({ form, errors, forceTouchErrors: true });
-		if (!isValid) return;
-		alert(JSON.stringify(form, null, 2));
+		if (e.target.checkValidity()) {
+			alert(JSON.stringify(form, null, 2));
+		}
 	};
 
 	return (
-		<form className={styles.form} onSubmit={onSubmitForm}>
+		<form className={styles.form} onSubmit={onSubmitForm} noValidate>
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Email</label>
 				<input
@@ -45,9 +36,10 @@ const LoginForm = (props) => {
 					value={form.email}
 					onChange={onUpdateField}
 					onBlur={onBlurField}
+					onInvalid={onInvalid}
 					required
 				/>
-				<p className="invalid-feedback">{errors.email.message}</p>
+				<p className="invalid-feedback">{errors.email}</p>
 			</div>
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Password</label>
@@ -59,10 +51,11 @@ const LoginForm = (props) => {
 					value={form.password}
 					onChange={onUpdateField}
 					onBlur={onBlurField}
+					onInvalid={onInvalid}
 					required
 					minLength="8"
 				/>
-				<p className="invalid-feedback">{errors.password.message}</p>
+				<p className="invalid-feedback">{errors.password}</p>
 			</div>
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Confirm Password</label>
@@ -74,11 +67,12 @@ const LoginForm = (props) => {
 					value={form.confirmPassword}
 					onChange={onUpdateField}
 					onBlur={onBlurField}
+					onInvalid={onInvalid}
 					required
 					minLength="8"
 					pattern={form.password}
 				/>
-				<p className="invalid-feedback">{errors.confirmPassword.message}</p>
+				<p className="invalid-feedback">{errors.confirmPassword}</p>
 			</div>
 			<div className={styles.formActions}>
 				<button className={styles.formSubmitBtn} type="submit">
