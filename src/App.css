@@ -3,3 +3,17 @@
 	margin: 4rem auto;
 	padding: 0 2rem;
 }
+.form-control {
+	padding: 0.5rem;
+}
+.invalid-feedback {
+	display: none;
+	margin: 0.25rem 0 0 0;
+	color: #e11d48;
+}
+.was-validated .form-control:invalid {
+	border: 1px solid #e11d48;
+}
+.was-validated :invalid ~ .invalid-feedback {
+	display: inline-block;
+}

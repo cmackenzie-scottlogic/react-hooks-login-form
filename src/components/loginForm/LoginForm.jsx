@@ -38,7 +38,7 @@ const LoginForm = (props) => {
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Email</label>
 				<input
-					className={clsx(styles.formField, errors.email.dirty && errors.email.error && styles.formFieldError)}
+					className="form-control"
 					type="email"
 					aria-label="Email field"
 					name="email"
@@ -47,14 +47,12 @@ const LoginForm = (props) => {
 					onBlur={onBlurField}
 					required
 				/>
-				{errors.email.dirty && errors.email.error ? (
-					<p className={styles.formFieldErrorMessage}>{errors.email.message}</p>
-				) : null}
+				<p className="invalid-feedback">{errors.email.message}</p>
 			</div>
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Password</label>
 				<input
-					className={clsx(styles.formField, errors.password.dirty && errors.password.error && styles.formFieldError)}
+					className="form-control"
 					type="password"
 					aria-label="Password field"
 					name="password"
@@ -64,17 +62,12 @@ const LoginForm = (props) => {
 					required
 					minLength="8"
 				/>
-				{errors.password.dirty && errors.password.error ? (
-					<p className={styles.formFieldErrorMessage}>{errors.password.message}</p>
-				) : null}
+				<p className="invalid-feedback">{errors.password.message}</p>
 			</div>
 			<div className={styles.formGroup}>
 				<label className={styles.formLabel}>Confirm Password</label>
 				<input
-					className={clsx(
-						styles.formField,
-						errors.confirmPassword.dirty && errors.confirmPassword.error && styles.formFieldError
-					)}
+					className="form-control"
 					type="password"
 					aria-label="Confirm password field"
 					name="confirmPassword"
@@ -85,9 +78,7 @@ const LoginForm = (props) => {
 					minLength="8"
 					pattern={form.password}
 				/>
-				{errors.confirmPassword.dirty && errors.confirmPassword.error ? (
-					<p className={styles.formFieldErrorMessage}>{errors.confirmPassword.message}</p>
-				) : null}
+				<p className="invalid-feedback">{errors.confirmPassword.message}</p>
 			</div>
 			<div className={styles.formActions}>
 				<button className={styles.formSubmitBtn} type="submit">

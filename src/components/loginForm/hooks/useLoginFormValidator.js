@@ -74,6 +74,7 @@ export const useLoginFormValidator = (form) => {
 	};
 
 	const onBlurField = (e) => {
+		e.target.form.classList.add("was-validated");
 		const field = e.target.name;
 		const fieldError = errors[field];
 		if (fieldError.dirty) return;
