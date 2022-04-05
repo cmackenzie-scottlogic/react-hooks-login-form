@@ -4,10 +4,10 @@ import LoginForm from "./components/loginForm/LoginForm.jsx";
 function App() {
 	return (
 		<div className="App">
-			<h1>React form with hooks</h1>
-			<div>
+			<main>
+				<h1>React form with hooks</h1>
 				<LoginForm />
-			</div>
+			</main>
 		</div>
 	);
 }
