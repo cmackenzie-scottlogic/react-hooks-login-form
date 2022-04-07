@@ -9,7 +9,7 @@ export const useLoginFormValidator = (initialForm) => {
 	};
 
 	const onInvalid = (e) => {
-		e.target.form.classList.add("was-validated");
+		e.target.classList.add("was-validated");
 		const field = e.target.name;
 		errors[field] = e.target.validationMessage;
 		setErrors({ ...errors });

@@ -10,6 +10,7 @@ const LoginForm = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		e.target.classList.add("was-validated");
 		if (e.target.checkValidity()) {
 			alert(JSON.stringify(form, null, 2));
 		} else {
