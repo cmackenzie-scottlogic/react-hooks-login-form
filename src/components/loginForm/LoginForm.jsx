@@ -18,6 +18,24 @@ const LoginForm = () => {
 		}
 	};
 
+	const customInvalid = (e, otherId) => {
+		const element1 = e.target;
+		const element2 = document.getElementById(otherId);
+		if (
+			!element1.validity.valueMissing &&
+			!element1.validity.tooShort &&
+			!element2.validity.valueMissing &&
+			!element2.validity.tooShort &&
+			element1.value !== element2.value
+		) {
+			element1.setCustomValidity("Please ensure that the password and confirm password fields match");
+			element2.setCustomValidity("");
+		} else {
+			element1.setCustomValidity("");
+			element2.setCustomValidity("");
+		}
+	};
+
 	return (
 		<div role="presentation" onSubmit={onSubmit} onChange={onChange} onInvalid={onInvalid} onBlur={onBlur}>
 			<form className={styles.form} noValidate>
@@ -51,6 +69,7 @@ const LoginForm = () => {
 						value={form.password}
 						required
 						minLength="8"
+						onInput={(e) => customInvalid(e, "confirmPassword")}
 					/>
 					<p id="invalid-password" className="invalid-feedback">
 						{errors.password}
@@ -69,7 +88,7 @@ const LoginForm = () => {
 						value={form.confirmPassword}
 						required
 						minLength="8"
-						pattern={form.password}
+						onInput={(e) => customInvalid(e, "password")}
 					/>
 					<p id="invalid-confirmPassword" className="invalid-feedback">
 						{errors.confirmPassword}

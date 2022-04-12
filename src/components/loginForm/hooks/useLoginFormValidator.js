@@ -5,11 +5,11 @@ export const useLoginFormValidator = (initialForm) => {
 	const [form, setForm] = useState(initialForm);
 
 	const onBlur = (e) => {
+		e.target.classList.add("was-validated");
 		e.target.checkValidity();
 	};
 
 	const onInvalid = (e) => {
-		e.target.classList.add("was-validated");
 		const field = e.target.name;
 		errors[field] = e.target.validationMessage;
 		setErrors({ ...errors });
