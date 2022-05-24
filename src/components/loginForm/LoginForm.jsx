@@ -95,9 +95,7 @@ const LoginForm = () => {
 					</p>
 				</div>
 				<div className={styles.formActions}>
-					<button className={styles.formSubmitBtn} type="submit">
-						Login
-					</button>
+					<button className={styles.formSubmitBtn}>Login</button>
 				</div>
 			</form>
 		</div>
